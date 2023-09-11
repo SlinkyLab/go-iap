@@ -230,3 +230,7 @@ type (
 		WebOrderLineItemId          string            `json:"webOrderLineItemId"`
 	}
 )
+
+func (p SubscriptionNotificationV2DecodedPayload) Valid() error {
+	return nil
+}

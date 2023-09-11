@@ -8,6 +8,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/awa/go-iap/appstore"
 	"io"
 	"net/http"
 	"net/url"
@@ -420,6 +421,14 @@ func (a *StoreClient) ParseSignedTransactions(transactions []string) ([]*JWSTran
 	}
 
 	return result, nil
+}
+
+func (a *StoreClient) ParseSignedNotificationV2(signedPayloadV2 string) (*appstore.SubscriptionNotificationV2DecodedPayload, error) {
+	// Split the JWS format string into its three parts
+
+	notification := &appstore.SubscriptionNotificationV2DecodedPayload{}
+	err := a.parseJWS(signedPayloadV2, notification)
+	return notification, err
 }
 
 // ParseJWSEncodeString parse the jws encode string, such as JWSTransaction and JWSRenewalInfoDecodedPayload
